@@ -1,55 +1,38 @@
-graph = {
-  '9': [],
-  '1': ['2', '4'],
-  '7': ['9'],
-  '4': [],
-  '6' : ['1','7'],
-  '2' : []
-}
+graph={'4':['6','2'],'6':['5','3'],'2':[],'5':[],'3':['1'],'1':[]}
 
-visited = [] # List for visited nodes.
-queue = []     #Initialize a queue
+#BFS
+visit=[]
+q=[]
 
-def bfs(visited, graph, node): #function for BFS
-  visited.append(node)
-  queue.append(node)
+def bfs(visit,graph,node):
+	visit.append(node)
+	q.append(node)
 
-  while queue:          # Creating loop to visit each node
-    m = queue.pop(0)
-    print (m)
+	while q:
+		m=q.pop(0)
+		print(m, end=" ")
+		for n in graph[m]:
+			if n not in visit:
+				visit.append(n)
+				q.append(n)
 
-    for neighbour in graph[m]:
-      if neighbour not in visited:
-        visited.append(neighbour)
-        queue.append(neighbour)
-
-# Driver Code
-print("Following is the Breadth-First Search")
-bfs(visited, graph, '6')    # function calling
+print("BFS")
+bfs(visit,graph,'4')
 
 
 
 
+#DFS
+graph={'4':['6','2'],'6':['5','3'],'2':[],'5':[],'3':['1'],'1':[]}
 
-# Using a Python dictionary to act as an adjacency list
-graph = {
-  '5' : ['3','7'],
-  '3' : ['2', '4'],
-  '7' : ['8'],
-  '2' : [],
-  '4' : [],
-  '8' : []
-}
+visit=set()
 
-visited = set() # Set to keep track of visited nodes of graph.
+def dfs(visit,graph,node):
+	if node not in visit:
+		print(node,end=" ")
+		visit.add(node)
+		for n in graph[node]:
+			dfs(visited,graph,n)
 
-def dfs(visited, graph, node):  #function for dfs
-    if node not in visited:
-        print (node)
-        visited.add(node)
-        for neighbour in graph[node]:
-            dfs(visited, graph, neighbour)
-
-# Driver Code
-print("Following is the Depth-First Search")
-dfs(visited, graph, '5')
+print("DFS")
+dfs(visit,graph,'4')
